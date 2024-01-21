@@ -17,7 +17,7 @@ def get_time():
         "programming":"python"
         }
 
-@app.route('/react')
+@app.route('/')
 def react():
     return send_file('web-admin/frontend/dist/index.html')
 
