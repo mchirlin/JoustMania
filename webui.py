@@ -37,8 +37,8 @@ class SettingsForm(Form):
 class WebUI():
     def __init__(self, command_queue=Queue(), ns=None):
 
-        self.app = Flask(__name__)
-        self.app.secret_key="MAGFest is a donut"
+        app = Flask(__name__)
+        app.secret_key="MAGFest is a donut"
         self.command_queue = command_queue
         if ns == None:
 
@@ -58,57 +58,57 @@ class WebUI():
         else:
             self.ns = ns
 
-        self.app.add_url_rule('/','index',self.index)
-        self.app.add_url_rule('/changemode','change_mode',self.change_mode)
-        self.app.add_url_rule('/startgame','start_game',self.start_game)
-        self.app.add_url_rule('/killgame','kill_game',self.kill_game)
-        self.app.add_url_rule('/updateStatus','update',self.update)
-        self.app.add_url_rule('/battery','battery_status',self.battery_status)
-        self.app.add_url_rule('/settings','settings',self.settings, methods=['GET','POST'])
-        self.app.add_url_rule('/rand<num_teams>','randomize',self.randomize_teams)
-        self.app.add_url_rule('/power','power',self.power)
-        self.app.add_url_rule('/reboot8675309','reboot',self.reboot)
-        self.app.add_url_rule('/shutdown8675309','shutdown',self.shutdown)
-        self.app.add_url_rule('/shutdown','shutdown_lastscreen',self.shutdown_lastscreen)
+#         app.add_url_rule('/','index',self.index)
+#         app.add_url_rule('/changemode','change_mode',self.change_mode)
+#         app.add_url_rule('/startgame','start_game',self.start_game)
+#         app.add_url_rule('/killgame','kill_game',self.kill_game)
+#         app.add_url_rule('/updateStatus','update',self.update)
+#         app.add_url_rule('/battery','battery_status',self.battery_status)
+#         app.add_url_rule('/settings','settings',self.settings, methods=['GET','POST'])
+#         app.add_url_rule('/rand<num_teams>','randomize',self.randomize_teams)
+#         app.add_url_rule('/power','power',self.power)
+#         app.add_url_rule('/reboot8675309','reboot',self.reboot)
+#         app.add_url_rule('/shutdown8675309','shutdown',self.shutdown)
+#         app.add_url_rule('/shutdown','shutdown_lastscreen',self.shutdown_lastscreen)
 
     def web_loop(self):
-        self.app.run(host='0.0.0.0', port=80, debug=False)
+        app.run(host='0.0.0.0', port=80, debug=False)
 
     def web_loop_with_debug(self):
-        self.app.run(host='0.0.0.0', port=80, debug=True)
+        app.run(host='0.0.0.0', port=80, debug=True)
 
-    #@app.route('/')
+    @app.route('/')
     def index(self):
         return render_template('joustmania.html')
 
-    #@app.route('/updateStatus')
+    @app.route('/updateStatus')
     def update(self):
         return json.dumps(self.ns.status)
 
-    #@app.route('/changemode')
+    @app.route('/changemode')
     def change_mode(self):
         self.command_queue.put({'command': 'changemode'})
         return "{'status':'OK'}"
 
-    #@app.route('/startgame')
+    @app.route('/startgame')
     def start_game(self):
         self.command_queue.put({'command': 'startgame'})
         return "{'status':'OK'}"
 
-    #@app.route('/killgame')
+    @app.route('/killgame')
     def kill_game(self):
         self.command_queue.put({'command': 'killgame'})
         return "{'status':'OK'}"
 
-    #@app.route('/battery')
+    @app.route('/battery')
     def battery_status(self):
         return render_template('battery.html',ns=self.ns,levels=common.battery_levels)
 
-    #@app.route('/power')
+    @app.route('/power')
     def power(self):
         return render_template('power.html')
 
-    #@app.route('/shutdown8675309')
+    @app.route('/shutdown8675309')
     def shutdown(self):
         Process(target=self.shutdown_proc).start()
         #use redirect to conceal the url for tripping the shutdown
@@ -118,11 +118,11 @@ class WebUI():
         sleep(2)
         system("supervisorctl stop joustmania ; shutdown -H now ; kill -3 $(ps aux | grep '[p]iparty' | awk '{print $2}')")
 
-    #@app.route('/shutdown_lastscreen')
+    @app.route('/shutdown_lastscreen')
     def shutdown_lastscreen(self):
         return render_template('shutdown.html')
 
-    #@app.route('/reboot8675309')
+    @app.route('/reboot8675309')
     def reboot(self):
         Process(target=self.reboot_proc).start()
         return redirect(url_for('index'))
@@ -131,11 +131,11 @@ class WebUI():
         sleep(2)
         system("supervisorctl stop joustmania ; reboot now ; kill -3 $(ps aux | grep '[p]iparty' | awk '{print $2}')")
 
-    @self.app.route('/react')
+    @app.route('/react')
     def react(self):
         return send_file('index.html')
 
-    #@app.route('/settings')
+    @app.route('/settings')
     def settings(self):
         if request.method == 'POST':
             new_settings = SettingsForm(request.form).data
