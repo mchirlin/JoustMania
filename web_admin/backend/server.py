@@ -28,7 +28,7 @@ class WebAdmin:
     else:
         self.ns = ns
 
-    def start_web(self):
+    def start(self):
       self.configure_routes()
       # Your server logic goes here
       while True:
@@ -52,3 +52,7 @@ class WebAdmin:
 
     def run_flask(self):
         self.app.run(host='0.0.0.0', port=80, debug=True)
+
+def start_web(command_queue, ns):
+    webadmin = WebAdmin(command_queue,ns)
+    webadmin.start()
