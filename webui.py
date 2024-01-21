@@ -71,8 +71,6 @@ class WebUI():
         self.app.add_url_rule('/shutdown8675309','shutdown',self.shutdown)
         self.app.add_url_rule('/shutdown','shutdown_lastscreen',self.shutdown_lastscreen)
 
-        self.app.add_url_rule('/react','react',self.react)
-
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=80, debug=False)
 
@@ -133,9 +131,9 @@ class WebUI():
         sleep(2)
         system("supervisorctl stop joustmania ; reboot now ; kill -3 $(ps aux | grep '[p]iparty' | awk '{print $2}')")
 
-    #@app.route('/react')
+    @app.route('/react')
     def react(self):
-        return send_file('web-admin/dist/index.html')
+        return send_file('index.html')
 
     #@app.route('/settings')
     def settings(self):
