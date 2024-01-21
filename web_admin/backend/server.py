@@ -50,17 +50,17 @@ class WebAdmin:
       def status():
           return json.dumps(self.ns.status)
 
-    def start(self):
+    def web_loop(self):
         self.app.run(host='0.0.0.0', port=80, debug=False)
 
-    def debug(self):
+    def web_loop_with_debug(self):
         self.app.run(host='0.0.0.0', port=80, debug=True)
 
-def start(command_queue, ns):
+def start_web(command_queue, ns):
     server = WebAdmin(command_queue,ns)
     server.configure_routes()
-    server.start()
+    server.web_loop()
 
 if __name__ == '__main__':
     server = WebAdmin()
-    server.debug()
+    server.web_loop_with_debug()
