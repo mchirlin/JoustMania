@@ -1,32 +1,29 @@
 from flask import Flask, send_file, send_from_directory
 from multiprocessing import Queue, Manager, Process
-import datetime
 import json
 
-x = datetime.datetime.now()
-
 class Server:
-  def __init__(self, command_queue=Queue(), ns=None):
-    self.app = Flask(__name__)
-    self.app.secret_key="MAGFest is a donut"
-    self.command_queue = command_queue
+    def __init__(self, command_queue=Queue(), ns=None):
+        self.app = Flask(__name__)
+        self.app.secret_key="MAGFest is a donut"
+        self.command_queue = command_queue
 
-    if ns == None:
-        self.ns = Manager().Namespace()
-        self.ns.status = dict()
-        self.ns.settings = {
-            'sensitivity':1,
-            'red_on_kill':False,
-            'random_team_size':3,
-            'force_all_start':False,
-            'color_lock_choices':{
-                2: ['Magenta','Green'],
-                3: ['Orange','Turquoise','Purple'],
-                4: ['Yellow','Green','Blue','Purple']
-        }}
-        self.ns.battery_status = dict()
-    else:
-        self.ns = ns
+        if ns == None:
+            self.ns = Manager().Namespace()
+            self.ns.status = dict()
+            self.ns.settings = {
+                'sensitivity':1,
+                'red_on_kill':False,
+                'random_team_size':3,
+                'force_all_start':False,
+                'color_lock_choices':{
+                    2: ['Magenta','Green'],
+                    3: ['Orange','Turquoise','Purple'],
+                    4: ['Yellow','Green','Blue','Purple']
+            }}
+            self.ns.battery_status = dict()
+        else:
+            self.ns = ns
 
     # def start(self):
     #   self.configure_routes()
