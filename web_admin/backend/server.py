@@ -57,10 +57,10 @@ class WebAdmin:
         self.app.run(host='0.0.0.0', port=80, debug=True)
 
 def start(command_queue, ns):
-    webadmin = WebAdmin(command_queue,ns)
-    webadmin.configure_rotes()
-    webadmin.start()
+    server = WebAdmin(command_queue,ns)
+    server.configure_rotes()
+    server.start()
 
 if __name__ == '__main__':
-    webadmin = WebAdmin()
-    webadmin.debug()
+    server = WebAdmin()
+    server.debug()
