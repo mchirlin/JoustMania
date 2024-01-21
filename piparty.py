@@ -2,11 +2,10 @@ import psmove
 import common, colors, joust, webui
 import yaml
 import time, random, json, os, os.path, sys, glob
-from web_admin.backend.server import webadmin
+from web_admin.backend.server import WebAdmin
 from piaudio import Music, DummyMusic, Audio, InitAudio
 from enum import Enum
 from multiprocessing import Process, Value, Array, Queue, Manager, freeze_support
-from server import Server
 from games import ffa, zombie, commander, swapper, tournament, speed_bomb, fight_club
 from sys import platform
 if platform == "linux" or platform == "linux2":
@@ -273,9 +272,8 @@ class Menu():
 #         self.web_proc = Process(target=webui.start_web, args=(self.command_queue,self.ns))
 #         self.web_proc.start()
 
-        server_instance = Server(namespace, queue)
-        server_process = Process(target=webadmin.start)
-        flask_process = Process(target=webadmin.run_flask)
+        server_process = Process(target=WebAdmin.start)
+        flask_process = Process(target=WebAdmin.run_flask)
 
         # Start both the server process and Flask app process
         server_process.start()
