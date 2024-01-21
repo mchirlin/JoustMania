@@ -133,7 +133,11 @@ class WebUI():
 
     @app.route('/react')
     def react():
-        return send_file('index.html')
+        return send_file('web-admin/dist/index.html')
+
+    @app.route('/assets/<path:path>')
+    def serve_static(path):
+        return send_from_directory('web-admin/dist/assets', path)
 
 #     @app.route('/settings')
 #     def settings():
