@@ -549,6 +549,7 @@ class Menu():
                     move_opt[Opts.selection.value] = Selections.nothing.value
 
         if self.command_from_web == 'changemode':
+            print("Received command from web")
             self.command_from_web = ''
             change_mode = True
 
