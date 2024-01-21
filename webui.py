@@ -132,7 +132,6 @@ class WebUI():
         sleep(2)
         system("supervisorctl stop joustmania ; reboot now ; kill -3 $(ps aux | grep '[p]iparty' | awk '{print $2}')")
 
-
     #@app.route('/settings')
     def settings(self):
         if request.method == 'POST':
