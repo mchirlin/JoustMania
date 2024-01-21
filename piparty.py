@@ -658,6 +658,8 @@ class Menu():
                             self.admin_move = None
 
                 self.check_for_new_moves()
+
+                # Can be controlled via Web
                 self.check_change_mode()
                 self.check_admin_controls()
 

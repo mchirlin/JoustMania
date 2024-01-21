@@ -14,5 +14,5 @@ HOMENAME=`who | head -n1 | cut -d " " -f1`
 
 export HOME="/home/$HOMENAME/JoustMania"
 export PYTHONPATH="/home/$HOMENAME/psmoveapi/build/"
-# /home/$HOMENAME/JoustMania/venv/bin/python3 /home/$HOMENAME/JoustMania/webui.py
-/home/$HOMENAME/JoustMania/venv/bin/python3 /home/$HOMENAME/JoustMania/web-admin/backend/server.py
+/home/$HOMENAME/JoustMania/venv/bin/python3 /home/$HOMENAME/JoustMania/webui.py
+#/home/$HOMENAME/JoustMania/venv/bin/python3 /home/$HOMENAME/JoustMania/web-admin/backend/server.py

@@ -1,93 +1,104 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import List from '@mui/material/List';
 import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem';
+import CssBaseline from '@mui/material/CssBaseline';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArchiveIcon from '@mui/icons-material/Archive';
 import Paper from '@mui/material/Paper';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import Typography from '@mui/material/Typography';
-import {
-  Link as RouterLink,
-  Route,
-  Routes,
-  MemoryRouter,
-  useLocation,
-} from 'react-router-dom';
-import { StaticRouter } from 'react-router-dom/server';
+import Avatar from '@mui/material/Avatar';
 
-function Router(props) {
-  const { children } = props;
-  if (typeof window === 'undefined') {
-    return <StaticRouter location="/drafts">{children}</StaticRouter>;
-  }
+function refreshMessages() {
+  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
-  return (
-    <MemoryRouter initialEntries={['/drafts']} initialIndex={0}>
-      {children}
-    </MemoryRouter>
+  return Array.from(new Array(50)).map(
+    () => messageExamples[getRandomInt(messageExamples.length)],
   );
 }
 
-Router.propTypes = {
-  children: PropTypes.node,
-};
+export default function FixedBottomNavigation() {
+  const [value, setValue] = React.useState(0);
+  const ref = React.useRef(null);
+  const [messages, setMessages] = React.useState(() => refreshMessages());
 
-const Link = React.forwardRef(function Link(itemProps, ref) {
-  return <RouterLink ref={ref} {...itemProps} role={undefined} />;
-});
-
-function ListItemLink(props) {
-  const { icon, primary, to } = props;
+  React.useEffect(() => {
+    ref.current.ownerDocument.body.scrollTop = 0;
+    setMessages(refreshMessages());
+  }, [value, setMessages]);
 
   return (
-    <li>
-      <ListItem button component={Link} to={to}>
-        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-        <ListItemText primary={primary} />
-      </ListItem>
-    </li>
+    <Box sx={{ pb: 7 }} ref={ref}>
+      <CssBaseline />
+      <List>
+        {messages.map(({ primary, secondary, person }, index) => (
+          <ListItemButton key={index + person}>
+            <ListItemAvatar>
+              <Avatar alt="Profile Picture" src={person} />
+            </ListItemAvatar>
+            <ListItemText primary={primary} secondary={secondary} />
+          </ListItemButton>
+        ))}
+      </List>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+        </BottomNavigation>
+      </Paper>
+    </Box>
   );
 }
 
-ListItemLink.propTypes = {
-  icon: PropTypes.element,
-  primary: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
-};
-
-function Content() {
-  const location = useLocation();
-  return (
-    <Typography variant="body2" sx={{ pb: 2 }} color="text.secondary">
-      Current route: {location.pathname}
-    </Typography>
-  );
-}
-
-export default function ListRouter() {
-  return (
-    <Router>
-      <Box sx={{ width: 360 }}>
-        <Routes>
-          <Route path="*" element={<Content />} />
-        </Routes>
-
-        <Paper elevation={0}>
-          <List aria-label="main mailbox folders">
-            <ListItemLink to="/inbox" primary="Inbox" icon={<InboxIcon />} />
-            <ListItemLink to="/drafts" primary="Drafts" icon={<DraftsIcon />} />
-          </List>
-          <Divider />
-          <List aria-label="secondary mailbox folders">
-            <ListItemLink to="/trash" primary="Trash" />
-            <ListItemLink to="/spam" primary="Spam" />
-          </List>
-        </Paper>
-      </Box>
-    </Router>
-  );
-}
+const messageExamples = [
+  {
+    primary: 'Brunch this week?',
+    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    person: '/static/images/avatar/5.jpg',
+  },
+  {
+    primary: 'Birthday Gift',
+    secondary: `Do you have a suggestion for a good present for John on his work
+      anniversary. I am really confused & would love your thoughts on it.`,
+    person: '/static/images/avatar/1.jpg',
+  },
+  {
+    primary: 'Recipe to try',
+    secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
+    person: '/static/images/avatar/2.jpg',
+  },
+  {
+    primary: 'Yes!',
+    secondary: 'I have the tickets to the ReactConf for this year.',
+    person: '/static/images/avatar/3.jpg',
+  },
+  {
+    primary: "Doctor's Appointment",
+    secondary: 'My appointment for the doctor was rescheduled for next Saturday.',
+    person: '/static/images/avatar/4.jpg',
+  },
+  {
+    primary: 'Discussion',
+    secondary: `Menus that are generated by the bottom app bar (such as a bottom
+      navigation drawer or overflow menu) open as bottom sheets at a higher elevation
+      than the bar.`,
+    person: '/static/images/avatar/5.jpg',
+  },
+  {
+    primary: 'Summer BBQ',
+    secondary: `Who wants to have a cookout this weekend? I just got some furniture
+      for my backyard and would love to fire up the grill.`,
+    person: '/static/images/avatar/1.jpg',
+  },
+];

@@ -48,10 +48,10 @@ class Server:
           return json.dumps(self.ns.status)
 
     def web_loop(self):
-        self.app.run(host='0.0.0.0', port=80, debug=False)
+        self.app.run(host='0.0.0.0', port=5173, debug=False)
 
     def web_loop_with_debug(self):
-        self.app.run(host='0.0.0.0', port=80, debug=True)
+        self.app.run(host='0.0.0.0', port=5173, debug=True)
 
 def start_web(command_queue, ns):
     server = Server(command_queue,ns)
