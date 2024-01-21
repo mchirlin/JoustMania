@@ -658,11 +658,12 @@ class Menu():
                             self.admin_move = None
 
                 self.check_for_new_moves()
+                self.check_change_mode()
+                self.check_admin_controls()
+
                 if len(self.tracked_moves) > 0:
                     self.check_new_admin()
-                    self.check_change_mode()
                     self.check_game_trigger()
-                    self.check_admin_controls()
                     self.check_start_game()
                     self.check_update()
                     self.check_charging_controller()
