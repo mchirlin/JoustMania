@@ -9,6 +9,10 @@ fi
 #so we need to use the who command. 
 HOMENAME=`who | head -n1 | cut -d " " -f1`
 
+#Start Web Server
+./
+
+#Start Game + API Server
 export HOME="/root"
 export PYTHONPATH="/home/$HOMENAME/psmoveapi/build/"
 exec /home/$HOMENAME/JoustMania/venv/bin/python3 /home/$HOMENAME/JoustMania/piparty.py

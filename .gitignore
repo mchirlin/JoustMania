@@ -74,6 +74,7 @@ audio/Menu/music
 *.yaml
 *.DS_Store
 apfiles/ap_active
+.idea/
 
 
 # Python virtualenv
