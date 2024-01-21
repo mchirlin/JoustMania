@@ -135,8 +135,8 @@ class WebUI():
 
     #@app.route('/react')
     def react(self):
-        return render_template('web-admin/dist/index.html')
-        
+        return render_template('../web-admin/dist/index.html')
+
     #@app.route('/settings')
     def settings(self):
         if request.method == 'POST':
