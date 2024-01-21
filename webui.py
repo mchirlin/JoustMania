@@ -41,7 +41,6 @@ class WebUI():
         app.secret_key="MAGFest is a donut"
         self.command_queue = command_queue
         if ns == None:
-
             self.ns = Manager().Namespace()
             self.ns.status = dict()
             self.ns.settings = {
@@ -85,10 +84,10 @@ class WebUI():
 #     def update(self):
 #         return json.dumps(self.ns.status)
 #
-#     @app.route('/changemode')
-#     def change_mode(self):
-#         self.command_queue.put({'command': 'changemode'})
-#         return "{'status':'OK'}"
+    @app.route('/changemode')
+    def change_mode():
+        self.command_queue.put({'command': 'changemode'})
+        return "{'status':'OK'}"
 #
 #     @app.route('/startgame')
 #     def start_game(self):
