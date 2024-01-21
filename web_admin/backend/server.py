@@ -58,7 +58,7 @@ class WebAdmin:
 
 def start(command_queue, ns):
     server = WebAdmin(command_queue,ns)
-    server.configure_rotes()
+    server.configure_routes()
     server.start()
 
 if __name__ == '__main__':
