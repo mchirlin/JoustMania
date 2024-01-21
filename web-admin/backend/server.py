@@ -15,7 +15,7 @@ def get_time():
         "Age":"22",
         "Date":x,
         "programming":"python"
-        }
+    }
 
 @app.route('/')
 def react():
