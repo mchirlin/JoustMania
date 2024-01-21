@@ -131,7 +131,7 @@ class WebUI():
         sleep(2)
         system("supervisorctl stop joustmania ; reboot now ; kill -3 $(ps aux | grep '[p]iparty' | awk '{print $2}')")
 
-    @app.route('/react')
+    @self.app.route('/react')
     def react(self):
         return send_file('index.html')
 
