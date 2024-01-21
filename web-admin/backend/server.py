@@ -19,11 +19,11 @@ def get_time():
 
 @app.route('/')
 def react():
-    return send_file('web-admin/frontend/dist/index.html')
+    return send_file('../frontend/dist/index.html')
 
 @app.route('/assets/<path:path>')
 def serve_static(path):
-    return send_from_directory('web-admin/frontend/dist/assets', path)
+    return send_from_directory('../frontend/dist/assets', path)
 
 # Running app
 if __name__ == '__main__':
