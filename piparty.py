@@ -272,12 +272,8 @@ class Menu():
 #         self.web_proc = Process(target=webui.start_web, args=(self.command_queue,self.ns))
 #         self.web_proc.start()
 
-        self.server_process = Process(target=server.start_web, args=(self.command_queue,self.ns))
-        self.flask_process = Process(target=server.run_flask)
-
-        # Start both the server process and Flask app process
+        self.server_process = Process(target=server.start, args=(self.command_queue,self.ns))
         self.server_process.start()
-        self.flask_process.start()
 
         self.ns.status = dict()
         self.ns.settings = dict()

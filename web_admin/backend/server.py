@@ -28,13 +28,13 @@ class WebAdmin:
     else:
         self.ns = ns
 
-    def start(self):
-      self.configure_routes()
-      # Your server logic goes here
-      while True:
-          # Example: Read from queue and update namespace
-          data_from_queue = self.queue.get()
-          self.namespace.data = data_from_queue
+    # def start(self):
+    #   self.configure_routes()
+    #   # Your server logic goes here
+    #   while True:
+    #       # Example: Read from queue and update namespace
+    #       data_from_queue = self.queue.get()
+    #       self.namespace.data = data_from_queue
 
     def configure_routes(self):
       @self.app.route('/')
@@ -50,9 +50,17 @@ class WebAdmin:
       def status():
           return json.dumps(self.ns.status)
 
-    def run_flask(self):
+    def start(self):
+        self.app.run(host='0.0.0.0', port=80, debug=False)
+
+    def debug(self):
         self.app.run(host='0.0.0.0', port=80, debug=True)
 
-def start_web(command_queue, ns):
+def start(command_queue, ns):
     webadmin = WebAdmin(command_queue,ns)
+    webadmin.configure_rotes()
     webadmin.start()
+
+if __name__ == '__main__':
+    webadmin = WebAdmin()
+    webadmin.debug()
