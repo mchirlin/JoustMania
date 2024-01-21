@@ -1,6 +1,7 @@
 from flask import Flask, send_file, send_from_directory
 from multiprocessing import Queue, Manager, Process
 import datetime
+import json
 
 x = datetime.datetime.now()
 
@@ -27,7 +28,7 @@ class WebAdmin:
     else:
         self.ns = ns
 
-    def start(self):
+    def start_web(self):
       self.configure_routes()
       # Your server logic goes here
       while True:
@@ -50,4 +51,4 @@ class WebAdmin:
           return json.dumps(self.ns.status)
 
     def run_flask(self):
-        app.run(host='0.0.0.0', port=80, debug=True)
+        self.app.run(host='0.0.0.0', port=80, debug=True)
