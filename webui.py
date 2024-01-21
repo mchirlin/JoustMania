@@ -8,6 +8,8 @@ import common, colors
 import json
 import yaml
 
+app = Flask(__name__)
+
 class MultiCheckboxField(SelectMultipleField):
     """
     A multiple-select, except displays a list of checkboxes.
@@ -37,7 +39,6 @@ class SettingsForm(Form):
 class WebUI():
     def __init__(self, command_queue=Queue(), ns=None):
 
-        app = Flask(__name__)
         app.secret_key="MAGFest is a donut"
         self.command_queue = command_queue
         if ns == None:
