@@ -2,7 +2,7 @@ import psmove
 import common, colors, joust, webui
 import yaml
 import time, random, json, os, os.path, sys, glob
-from .web_admin.backend.server import webadmin
+from web_admin.backend.server import webadmin
 from piaudio import Music, DummyMusic, Audio, InitAudio
 from enum import Enum
 from multiprocessing import Process, Value, Array, Queue, Manager, freeze_support
