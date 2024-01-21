@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import List from '@mui/material/List';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -11,7 +12,6 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import Typography from '@mui/material/Typography';
 import {
   Link as RouterLink,
-  LinkProps as RouterLinkProps,
   Route,
   Routes,
   MemoryRouter,
@@ -19,7 +19,7 @@ import {
 } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom/server';
 
-function Router(props: { children?: React.ReactNode }) {
+function Router(props) {
   const { children } = props;
   if (typeof window === 'undefined') {
     return <StaticRouter location="/drafts">{children}</StaticRouter>;
@@ -32,20 +32,15 @@ function Router(props: { children?: React.ReactNode }) {
   );
 }
 
-interface ListItemLinkProps {
-  icon?: React.ReactElement;
-  primary: string;
-  to: string;
-}
+Router.propTypes = {
+  children: PropTypes.node,
+};
 
-const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(
-  itemProps,
-  ref,
-) {
+const Link = React.forwardRef(function Link(itemProps, ref) {
   return <RouterLink ref={ref} {...itemProps} role={undefined} />;
 });
 
-function ListItemLink(props: ListItemLinkProps) {
+function ListItemLink(props) {
   const { icon, primary, to } = props;
 
   return (
@@ -57,6 +52,12 @@ function ListItemLink(props: ListItemLinkProps) {
     </li>
   );
 }
+
+ListItemLink.propTypes = {
+  icon: PropTypes.element,
+  primary: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+};
 
 function Content() {
   const location = useLocation();
