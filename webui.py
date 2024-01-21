@@ -1,6 +1,6 @@
 from multiprocessing import Queue, Manager, Process
 from time import sleep
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, send_file, request, redirect, url_for, flash
 from time import sleep
 from wtforms import Form, SelectField, SelectMultipleField, BooleanField, widgets, FieldList
 from os import system
@@ -135,7 +135,7 @@ class WebUI():
 
     #@app.route('/react')
     def react(self):
-        return render_template('../web-admin/dist/index.html')
+        return send_file('web-admin/dist/index.html')
 
     #@app.route('/settings')
     def settings(self):
