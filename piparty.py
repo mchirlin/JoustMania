@@ -269,11 +269,11 @@ class Menu():
         self.command_queue = Queue()
         self.joust_manager = Manager()
         self.ns = self.joust_manager.Namespace()
-        self.web_proc = Process(target=webui.start_web, args=(self.command_queue,self.ns))
-        self.web_proc.start()
+#        self.web_proc = Process(target=webui.start_web, args=(self.command_queue,self.ns))
+#        self.web_proc.start()
 
-#        self.server_process = Process(target=server.start_web, args=(self.command_queue,self.ns))
-#        self.server_process.start()
+        self.server_process = Process(target=server.start_web, args=(self.command_queue,self.ns))
+        self.server_process.start()
 
         self.ns.status = dict()
         self.ns.settings = dict()
