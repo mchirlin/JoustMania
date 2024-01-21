@@ -38,7 +38,7 @@ class Server:
       def react():
           return send_file('../frontend/dist/index.html')
 
-      @self.route('/assets/<path:path>')
+      @self.app.route('/assets/<path:path>')
       def serve_static(path):
           return send_from_directory('../frontend/dist/assets', path)
 
