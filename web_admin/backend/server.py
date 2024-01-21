@@ -5,7 +5,7 @@ import json
 
 x = datetime.datetime.now()
 
-class WebAdmin:
+class Server:
   def __init__(self, command_queue=Queue(), ns=None):
     self.app = Flask(__name__)
     self.app.secret_key="MAGFest is a donut"
@@ -57,10 +57,10 @@ class WebAdmin:
         self.app.run(host='0.0.0.0', port=80, debug=True)
 
 def start_web(command_queue, ns):
-    server = WebAdmin(command_queue,ns)
+    server = Server(command_queue,ns)
     server.configure_routes()
     server.web_loop()
 
 if __name__ == '__main__':
-    server = WebAdmin()
+    server = Server()
     server.web_loop_with_debug()
