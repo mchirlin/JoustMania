@@ -26,10 +26,6 @@ class Server:
                     4: ['Yellow','Green','Blue','Purple']
             }}
             self.ns.battery_status = dict()
-            self.ns.game_modes = [
-                {'id': 0, 'name': 'Joust Free-for-All'},
-                {'id': 1, 'name': 'Joust Teams'}
-            ]
         else:
             self.ns = ns
 
@@ -58,7 +54,7 @@ class Server:
 
       @self.app.route('/game_modes')
       def game_modes():
-          return [dict(value._asdict()) for value in common.Games]
+          return [{'id': e.value[0], 'name': e.value[1], 'minMoves': e.value[2]} for e in Games]
 
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=5173, debug=False)
