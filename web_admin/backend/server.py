@@ -1,6 +1,7 @@
 from flask import Flask, send_file, send_from_directory
 from multiprocessing import Queue, Manager, Process
 import json
+import common
 
 class Server:
     def __init__(self, command_queue=Queue(), ns=None):
@@ -55,10 +56,9 @@ class Server:
           # print(self.ns.status)
           return json.dumps(self.ns.status)
 
-      # @self.app.route('/game_modes')
-      # def game_modes():
-      #     print(self.ns.status)
-      #     return json.dumps(self.ns.game_modes)
+      @self.app.route('/game_modes')
+      def game_modes():
+          return [dict(value._asdict()) for value in common.Games]
 
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=5173, debug=False)
