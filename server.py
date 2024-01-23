@@ -60,7 +60,7 @@ class Server:
         self.app.run(host='0.0.0.0', port=5173, debug=False)
 
     def web_loop_with_debug(self):
-        self.app.run(host='0.0.0.0', port=5173, debug=True)
+        self.app.run(host='0.0.0.0', port=5174, debug=True)
 
 def start_web(command_queue, ns):
     server = Server(command_queue,ns)
