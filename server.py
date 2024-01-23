@@ -1,7 +1,7 @@
 from flask import Flask, send_file, send_from_directory
 from multiprocessing import Queue, Manager, Process
 import json
-from . import common
+from web_admin.backend import common
 
 class Server:
     def __init__(self, command_queue=Queue(), ns=None):
@@ -48,7 +48,7 @@ class Server:
 
       @self.app.route('/assets/<path:path>')
       def serve_static(path):
-          return send_from_directory('../frontend/dist/assets', path)
+          return send_from_directory('/web_admin/dist/assets', path)
 
       # Route for seeing a data
       @self.app.route('/status')

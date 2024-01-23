@@ -1,9 +1,9 @@
 import psmove
-import common, colors, joust, webui
+import common, colors, joust
 import yaml
-import time, random, json, os, os.path, sys, glob
-from web_admin.backend import server
-from piaudio import Music, DummyMusic, Audio, InitAudio
+import time, random, os, os.path
+import server
+from piaudio import Music, Audio, InitAudio
 from enum import Enum
 from multiprocessing import Process, Value, Array, Queue, Manager, freeze_support
 from games import ffa, zombie, commander, swapper, tournament, speed_bomb, fight_club
@@ -270,7 +270,7 @@ class Menu():
 #        self.web_proc = Process(target=webui.start_web, args=(self.command_queue,self.ns))
 #        self.web_proc.start()
 
-        self.server_process = Process(target=server.start_web, args=(self.command_queue,self.ns))
+        self.server_process = Process(target=server.start_web, args=(self.command_queue, self.ns))
         self.server_process.start()
 
         self.ns.status = dict()
