@@ -1,7 +1,7 @@
 from flask import Flask, send_file, send_from_directory
 from multiprocessing import Queue, Manager, Process
 import json
-from ... import common
+from . import common
 
 class Server:
     def __init__(self, command_queue=Queue(), ns=None):
