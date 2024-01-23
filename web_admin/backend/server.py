@@ -51,8 +51,8 @@ class Server:
       def status():
           return json.dumps(self.ns.status)
 
-      @self.app.route('/modes')
-      def status():
+      @self.app.route('/game_modes')
+      def game_modes():
           return json.dumps(self.ns.game_modes)
 
     def web_loop(self):
