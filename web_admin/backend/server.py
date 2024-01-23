@@ -52,13 +52,13 @@ class Server:
       # Route for seeing a data
       @self.app.route('/status')
       def status():
-          print(self.ns.status)
+          # print(self.ns.status)
           return json.dumps(self.ns.status)
 
-      @self.app.route('/game_modes')
-      def game_modes():
-          print(self.ns.status)
-          return json.dumps(self.ns.game_modes)
+      # @self.app.route('/game_modes')
+      # def game_modes():
+      #     print(self.ns.status)
+      #     return json.dumps(self.ns.game_modes)
 
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=5173, debug=False)
