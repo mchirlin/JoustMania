@@ -52,7 +52,7 @@ export default function Home() {
   	}, []);
 
    useEffect(() => {
-   		fetch("/modes").then((res) =>
+   		fetch("/game_modes").then((res) =>
    			res.json().then((modes) => {
    				// Setting status from api
    				setmodes({
