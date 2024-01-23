@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import { CssBaseline, Container } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
@@ -8,99 +8,43 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import Battery4BarIcon from '@mui/icons-material/Battery4Bar';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import Home from './components/Home';
+import Mode from './components/Mode';
+import Battery from './components/Battery';
+import Settings from './components/Settings';
 
-function refreshMessages() {
-  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
-
-  return Array.from(new Array(50)).map(
-    () => messageExamples[getRandomInt(messageExamples.length)],
-  );
-}
-
-export default function FixedBottomNavigation() {
-  const [value, setValue] = React.useState(0);
-  const ref = React.useRef(null);
-  const [messages, setMessages] = React.useState(() => refreshMessages());
-
-  React.useEffect(() => {
-    ref.current.ownerDocument.body.scrollTop = 0;
-    setMessages(refreshMessages());
-  }, [value, setMessages]);
+const App = () => {
+  const navigate = useNavigate();
 
   return (
-    <Box sx={{ pb: 7 }} ref={ref}>
+    <Box sx={{ pb: 7 }}>
       <CssBaseline />
-      <List>
-        {messages.map(({ primary, secondary, person }, index) => (
-          <ListItemButton key={index + person}>
-            <ListItemAvatar>
-              <Avatar alt="Profile Picture" src={person} />
-            </ListItemAvatar>
-            <ListItemText primary={primary} secondary={secondary} />
-          </ListItemButton>
-        ))}
-      </List>
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-          <BottomNavigationAction label="Mode" icon={<SportsEsportsIcon />} />
-          <BottomNavigationAction label="Controllers" icon={<Battery4BarIcon />} />
-          <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
-        </BottomNavigation>
-      </Paper>
+      <Container>
+        {/* Add a header, navigation bar, or other layout components here if needed */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="mode" element={<Mode />} />
+          <Route path="battery" element={<Battery />} />
+          <Route path="settings" element={<Settings />} />
+        </Routes>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation
+            showLabels
+            onChange={(event, path) => {
+              console.log('Navigating to:', path+1);
+              navigate(path+1); // Use navigate to update the route
+            }}
+          >
+            <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/" />
+            <BottomNavigationAction label="Mode" icon={<SportsEsportsIcon />} component={Link} to="mode" />
+            <BottomNavigationAction label="Controllers" icon={<Battery4BarIcon />} component={Link} to="battery" />
+            <BottomNavigationAction label="Settings" icon={<SettingsIcon />} component={Link} to="settings" />
+          </BottomNavigation>
+        </Paper>
+      </Container>
     </Box>
   );
-}
+};
 
-const messageExamples = [
-  {
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
-    person: '/static/images/avatar/5.jpg',
-  },
-  {
-    primary: 'Birthday Gift',
-    secondary: `Do you have a suggestion for a good present for John on his work
-      anniversary. I am really confused & would love your thoughts on it.`,
-    person: '/static/images/avatar/1.jpg',
-  },
-  {
-    primary: 'Recipe to try',
-    secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
-    person: '/static/images/avatar/2.jpg',
-  },
-  {
-    primary: 'Yes!',
-    secondary: 'I have the tickets to the ReactConf for this year.',
-    person: '/static/images/avatar/3.jpg',
-  },
-  {
-    primary: "Doctor's Appointment",
-    secondary: 'My appointment for the doctor was rescheduled for next Saturday.',
-    person: '/static/images/avatar/4.jpg',
-  },
-  {
-    primary: 'Discussion',
-    secondary: `Menus that are generated by the bottom app bar (such as a bottom
-      navigation drawer or overflow menu) open as bottom sheets at a higher elevation
-      than the bar.`,
-    person: '/static/images/avatar/5.jpg',
-  },
-  {
-    primary: 'Summer BBQ',
-    secondary: `Who wants to have a cookout this weekend? I just got some furniture
-      for my backyard and would love to fire up the grill.`,
-    person: '/static/images/avatar/1.jpg',
-  },
-];
+export default App;

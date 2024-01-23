@@ -33,8 +33,6 @@ class Opts(Enum):
     random_start = 5
     charging = 6
 
-
-
 class Alive(Enum):
     on = 0
     off = 1
