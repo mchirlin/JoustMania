@@ -54,7 +54,7 @@ class Server:
 
       @self.app.route('/game_modes')
       def game_modes():
-          return [{'id': e.value[0], 'name': e.value[1], 'minMoves': e.value[2]} for e in Games]
+          return [{'id': e.value[0], 'name': e.value[1], 'minMoves': e.value[2]} for e in common.Games]git
 
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=5173, debug=False)
