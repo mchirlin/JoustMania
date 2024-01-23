@@ -40,7 +40,7 @@ class Server:
     def configure_routes(self):
       @self.app.route('/')
       def react():
-          return send_file('../frontend/dist/index.html')
+          return send_file('/web_admin/dist/index.html')
 
       @self.app.route('/assets/<path:path>')
       def serve_static(path):
