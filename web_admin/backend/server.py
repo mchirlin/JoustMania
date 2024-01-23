@@ -10,7 +10,10 @@ class Server:
 
         if ns == None:
             self.ns = Manager().Namespace()
-            self.ns.status = dict()
+            self.ns.status = {
+                'game_mode': 'Joust FFA'
+                # TODO - Remove
+            }
             self.ns.settings = {
                 'sensitivity':1,
                 'red_on_kill':False,
