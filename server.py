@@ -54,7 +54,8 @@ class Server:
 
       @self.app.route('/game_modes')
       def game_modes():
-          return json.dumps([{e.pretty_name} for e in common.Games])
+          print(json.dumps([{e.pretty_name} for e in common.Games]))
+          return json.dumps(dict())
 
     def web_loop(self):
         self.app.run(host='0.0.0.0', port=5173, debug=False)
