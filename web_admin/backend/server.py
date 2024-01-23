@@ -52,7 +52,7 @@ class Server:
       # Route for seeing a data
       @self.app.route('/status')
       def status():
-          print(self.ns)
+          print(self.ns.status)
           return json.dumps(self.ns.status)
 
       @self.app.route('/game_modes')
