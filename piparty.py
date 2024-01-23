@@ -276,6 +276,7 @@ class Menu():
         self.ns.status = dict()
         self.ns.settings = dict()
         self.ns.battery_status = dict()
+        self.ns.game_modes = [dict(value._asdict()) for value in common.Games]
         self.command_from_web = ''
         self.initialize_settings()
         self.update_settings_file()
