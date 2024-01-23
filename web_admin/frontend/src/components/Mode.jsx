@@ -4,16 +4,16 @@ export default function Mode() {
   // usestate for setting a javascript
   // object for storing and using status
   const [status, setstatus] = useState({
-    game_modes: []
+    game_mode: ""
   });
 
   // Using useEffect for single rendering
   useEffect(() => {
-  		fetch("/game_modes").then((res) =>
-  			res.json().then((game_modes) => {
+  		fetch("/status").then((res) =>
+  			res.json().then((status) => {
   				// Setting status from api
   				setstatus({
-  					game_modes: game_modes,
+  					game_mode: status.game_mode,
   				});
   			})
   		);
@@ -25,7 +25,7 @@ export default function Mode() {
       <header className="App-header">
         <h1>React and flask</h1>
         {/* Calling /status from setstatus for showing */}
-        <p>{status.game_modes}</p>
+        <p>{status.game_mode}</p>
       </header>
     </>
   )
