@@ -68,4 +68,5 @@ def start_web(command_queue, ns):
 
 if __name__ == '__main__':
     server = Server()
+    server.configure_routes()
     server.web_loop_with_debug()
