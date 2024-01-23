@@ -1,51 +1,43 @@
-import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
-import HomeIcon from '@mui/icons-material/Home';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import Battery4BarIcon from '@mui/icons-material/Battery4Bar';
-import SettingsIcon from '@mui/icons-material/Settings';
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-} from "@mui/material";
+import { useState, useEffect } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/assets/vite.svg'
+import './App.css'
 
-export default function Home() {
-
-  const [modes, setmodes] = useState({
-    modes: []
+export default function Mode() {
+  // usestate for setting a javascript
+  // object for storing and using status
+  const [status, setstatus] = useState({
+    game_mode: ""
   });
 
-   useEffect(() => {
-   		fetch("/game_modes").then((res) =>
-   			res.json().then((modes) => {
-   				// Getting modes from backend server
-   				setmodes(modes);
-   			})
-   		);
-   	}, []);
+  // Using useEffect for single rendering
+  useEffect(() => {
+  		fetch("/status").then((res) =>
+  			res.json().then((status) => {
+  				// Setting status from api
+  				setstatus({
+  					game_mode: status.game_mode,
+  				});
+  			})
+  		);
+  	}, []);
 
- return (
-    <center>
-      <div style={{ width: "100%" }}>
-        <Grid container justifyContent="center" spacing={2}>
-          {modes.map((item, index) => (
-            <Grid item key={index}>
-             <Card sx={{ maxWidth: 345 }}>
-               <CardActionArea>
-                 <CardContent>
-                  <div>{item.name}</div>
-                 </CardContent>
-               </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-    </center>
-  );
+      <h1>Vite + React</h1>
+      <header className="App-header">
+        <h1>React and flask</h1>
+        {/* Calling /status from setstatus for showing */}
+        <p>{status.game_mode}</p>
+      </header>
+    </>
+  )
 }
